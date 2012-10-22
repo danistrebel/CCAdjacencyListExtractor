@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="build" path="src"/>
+	<classpathentry kind="var" path="JRE_LIB" rootpath="JRE_SRCROOT" sourcepath="JRE_SRC"/>
+	<classpathentry kind="con" path="/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/${classpath}"/>
+	<classpathentry kind="lib" path="/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/lib/commoncrawl-0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/lib/hadoop-core.jar"/>
+	<classpathentry kind="lib" path="/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/lib/jets3t-0.8.1.jar"/>
+	<classpathentry kind="lib" path="/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/lib/jsoup-1.6.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

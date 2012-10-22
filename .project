@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>CCAdjacencyListExtractor</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>${classpath}</name>
+			<type>2</type>
+			<location>/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/${classpath}</location>
+		</link>
+		<link>
+			<name>build</name>
+			<type>2</type>
+			<location>/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/build</location>
+		</link>
+		<link>
+			<name>src</name>
+			<type>2</type>
+			<location>/Users/daniel/Documents/workspace/singnal-collect/CCAdjacencyListExtractor/src</location>
+		</link>
+	</linkedResources>
+</projectDescription>
