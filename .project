@@ -16,11 +16,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>${classpath}</name>
-			<type>2</type>
-			<location>/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/${classpath}</location>
-		</link>
-		<link>
 			<name>build</name>
 			<type>2</type>
 			<location>/Users/daniel/Documents/workspace/singnal-collect/cc-helloworld/build</location>

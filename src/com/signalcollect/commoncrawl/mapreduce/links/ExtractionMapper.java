@@ -1,7 +1,8 @@
-package com.signalcollect.commoncrawl.mapreduce;
+package com.signalcollect.commoncrawl.mapreduce.links;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.apache.hadoop.io.LongWritable;
@@ -17,10 +18,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ExtractionMapper extends MapReduceBase implements
-		Mapper<Text, ArcFileItem, LongWritable, LongWritable> {
+		Mapper<Text, ArcFileItem, LongWritable, ArrayList<LongWritable>> {
 
 	public void map(Text key, ArcFileItem value,
-			OutputCollector<LongWritable, LongWritable> output, Reporter reporter)
+			OutputCollector<LongWritable, ArrayList<LongWritable>> output, Reporter reporter)
 			throws IOException {
 		try {
 			if (!value.getMimeType().contains("text")) {
@@ -43,9 +44,10 @@ public class ExtractionMapper extends MapReduceBase implements
 			Elements links = doc.select("a[href]");
 			for (Element link : links) {
 				System.out.println("link to: " + link.absUrl("href"));
-			    output.collect(new LongWritable(sourceURI.hashCode()), new LongWritable(link.absUrl("href").hashCode()));
+				ArrayList<LongWritable> linkWrapper = new ArrayList<LongWritable>();
+				linkWrapper.add(new LongWritable(link.absUrl("href").hashCode()));
+			    output.collect(new LongWritable(sourceURI.hashCode()), linkWrapper);
 			}
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

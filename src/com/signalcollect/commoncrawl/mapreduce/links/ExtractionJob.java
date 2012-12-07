@@ -1,17 +1,13 @@
-package com.signalcollect.commoncrawl.mapreduce;
+package com.signalcollect.commoncrawl.mapreduce.links;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.ArrayList;
 
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.LongWritable;
-import org.apache.hadoop.io.SetFile;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.FileOutputFormat;
 import org.apache.hadoop.mapred.InputSplit;
 import org.apache.hadoop.mapred.JobClient;
@@ -40,8 +36,8 @@ public class ExtractionJob {
 	 * TARGET_ID_n
 	 */
 	public static class CSVOutputFormat extends
-			TextOutputFormat<LongWritable, Set<LongWritable>> {
-		public RecordWriter<LongWritable, Set<LongWritable>> getRecordWriter(
+			TextOutputFormat<LongWritable, ArrayList<LongWritable>> {
+		public RecordWriter<LongWritable, ArrayList<LongWritable>> getRecordWriter(
 				FileSystem ignored, JobConf job, String name,
 				Progressable progress) throws IOException {
 			Path file = FileOutputFormat.getTaskOutputPath(job, name);
@@ -51,7 +47,7 @@ public class ExtractionJob {
 		}
 
 		protected static class CSVRecordWriter implements
-				RecordWriter<LongWritable, Set<LongWritable>> {
+				RecordWriter<LongWritable, ArrayList<LongWritable>> {
 			protected DataOutputStream outStream;
 
 			public CSVRecordWriter(DataOutputStream out) {
@@ -59,7 +55,7 @@ public class ExtractionJob {
 			}
 
 			public synchronized void write(LongWritable key,
-					Set<LongWritable> links) throws IOException {
+					ArrayList<LongWritable> links) throws IOException {
 				CsvRecordOutput csvOutput = new CsvRecordOutput(outStream);
 				csvOutput.writeLong(key.get(), "sourceId");
 				csvOutput.writeInt(links.size(), "number of links");
@@ -112,7 +108,7 @@ public class ExtractionJob {
 
 		// Configures what kind of Hadoop output we want.
 		conf.setOutputKeyClass(LongWritable.class);
-		conf.setOutputValueClass(Set.class);
+		conf.setOutputValueClass(ArrayList.class);
 
 		// Configures where the output goes to when running our Hadoop job.
 		CSVOutputFormat.setOutputPath(conf, new Path(outputFile));
@@ -138,7 +134,7 @@ public class ExtractionJob {
 
 		// Tells Hadoop what Mapper and Reducer classes to use;
 		conf.setMapperClass(ExtractionMapper.class);
-		conf.setCombinerClass(ExtractionCombiner.class);
+		conf.setCombinerClass(ExtractionReducer.class);
 		conf.setReducerClass(ExtractionReducer.class);
 
 		// Tells Hadoop mappers and reducers to pull dependent libraries from
